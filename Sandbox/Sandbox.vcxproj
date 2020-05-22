@@ -15,6 +15,7 @@
     <ProjectGuid>{87585010-8124-4174-9593-E3CC90A40544}</ProjectGuid>
     <RootNamespace>Sandbox</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Editor</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -58,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>BIO_WINDOWS_PLATFORM;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Bioba\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bioba\src\;$(SolutionDir)Bioba\vendor\spdlog\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

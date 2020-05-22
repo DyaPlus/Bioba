@@ -11,12 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Bioba\Log.h" />
     <ClInclude Include="src\Bioba\Application.h" />
     <ClInclude Include="src\Bioba.h" />
     <ClInclude Include="src\Bioba\Core.h" />
     <ClInclude Include="src\Bioba\EntryPoint.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Bioba\Log.cpp" />
     <ClCompile Include="src\Bioba\Application.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -74,6 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>BIO_BUILD_DLL;BIO_WINDOWS_PLATFORM;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Bioba\vendor\spdlog\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -27,9 +27,15 @@
     <ClInclude Include="src\Bioba\EntryPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Bioba\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Bioba\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Bioba\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

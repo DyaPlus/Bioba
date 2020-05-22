@@ -1,0 +1,3 @@
+[submodule "Bioba\\vendor\\spdlog"]
+	path = Bioba\\vendor\\spdlog
+	url = https://github.com/gabime/spdlog.git

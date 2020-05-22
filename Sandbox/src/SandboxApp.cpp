@@ -1,17 +1,17 @@
 #include <Bioba.h>
 
-class Sandbox : public Bioba::Application
+class Editor : public Bioba::Application
 {
 public:
-	Sandbox() {
+	Editor() {
 
 	}
 
-	~Sandbox() {
+	~Editor() {
 
 	}
 };
 
 Bioba::Application* Bioba::CreateApplication() {
-	return new Sandbox();
+	return new Editor();
 }
