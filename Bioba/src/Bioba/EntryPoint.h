@@ -3,11 +3,12 @@
 #ifdef BIO_WINDOWS_PLATFORM
 
 	extern Bioba::Application* Bioba::CreateApplication();
+
 	int main(int argc , char** argv)
 	{
 		Bioba::Log::InitLog();
-		BIO_ENGINE_TRACE("TESTING TRACE MACRO WITH ENGINE");
-		BIO_EDITOR_INFO("TESTING INFO MACRO WITH EDITOR");
+		Bioba::KeyPressedEvent key_event(1,0);
+		BIO_ENGINE_TRACE(key_event.ToString());
 
 		auto app = Bioba::CreateApplication();
 		app->Start();

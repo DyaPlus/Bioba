@@ -4,6 +4,7 @@
 
 #include "Bioba/Application.h"
 #include "Bioba/Log.h"
+#include "Bioba/Events/KeyEvent.h"
 
 //---------------EntryPoint-------------
 #include "Bioba/EntryPoint.h"
