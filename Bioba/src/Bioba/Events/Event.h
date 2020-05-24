@@ -31,9 +31,9 @@ namespace Bioba {
 	// F will be deduced by the compiler
 	template<typename T , typename F>
 	bool DispatchEvent(Event& event ,const F& func) {
-		if (m_Event.GetEventType() == T::GetStaticType())
+		if (event.GetEventType() == T::GetStaticType())
 		{
-			m_Event.Handled = func(static_cast<T&>(m_Event));
+			event.Handled = func(static_cast<T&>(event));
 			return true;
 		}
 		return false;

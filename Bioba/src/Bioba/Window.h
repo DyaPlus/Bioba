@@ -1,7 +1,11 @@
 #pragma once
-
 #include "Core.h"
+#include "Bioba/Log.h"
 #include "Events/Event.h"
+#include "Bioba/Events/KeyEvent.h"
+#include "Bioba/Events/MouseEvent.h"
+#include "Bioba/Events/ApplicationEvent.h"
+
 
 namespace Bioba {
 
