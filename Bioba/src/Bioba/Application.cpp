@@ -21,10 +21,22 @@ void Bioba::Application::Start()
 	}
 }
 
+void Bioba::Application::PushLayer(Layer* layer)
+{
+	m_LayerStack.PushLayer(layer);
+}
+
 void Bioba::Application::OnEvent(Event& e)
 {
 	DispatchEvent<WindowCloseEvent>(e, BIND_EVENT_FN(OnWindowClose));
-	BIO_ENGINE_INFO(e.ToString());
+	for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+	{
+		(*--it)->OnEvent(e);
+		if (e.Handled)
+		{
+			break; //A Layer found its event so don't continue
+		}
+	}
 }
 
 bool Bioba::Application::OnWindowClose(WindowCloseEvent& e)

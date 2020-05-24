@@ -40,7 +40,6 @@ project "Bioba"
 
     filter { "system:windows" }
         cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
             
         defines {
@@ -53,12 +52,15 @@ project "Bioba"
 
     filter { "configurations:Debug" }
         defines { "BIO_DEBUG" }
+        runtime "Debug"
         symbols "On"
     filter { "configurations:Release" }
         defines { "BIO_RELEASE" }
+        runtime "Release"
         optimize "On"
     filter { "configurations:Dist" }
         defines { "BIO_DIST" }
+        runtime "Release"
         optimize "On"
 
 
@@ -84,7 +86,6 @@ project "Editor"
 	}
     filter { "system:windows" }
         cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
             
         defines {
@@ -93,10 +94,13 @@ project "Editor"
 
     filter { "configurations:Debug" }
         defines { "BIO_DEBUG" }
+        runtime "Debug"
         symbols "On"
     filter { "configurations:Release" }
         defines { "BIO_RELEASE" }
+        runtime "Release"
         optimize "On"
     filter { "configurations:Dist" }
         defines { "BIO_DIST" }
+        runtime "Release"
         optimize "On"
