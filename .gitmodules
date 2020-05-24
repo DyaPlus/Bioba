@@ -1,3 +1,6 @@
 [submodule "Bioba\\vendor\\spdlog"]
 	path = Bioba\\vendor\\spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "Bioba\\vendor\\GLFW"]
+	path = Bioba\\vendor\\GLFW
+	url = https://github.com/TheCherno/glfw.git

@@ -1,5 +1,7 @@
 #pragma once
 #include "Core.h"
+#include "Window.h"
+#include "biopch.h"
 
 namespace Bioba
 {
@@ -11,6 +13,9 @@ namespace Bioba
 
 		void Start();
 
+	private:
+		std::unique_ptr<Window> m_Window;
+		bool m_IsRunning;
 
 	};
 

@@ -5,6 +5,12 @@ workspace "Bioba-GameEngine"
 
 output_dir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Bioba/vendor/GLFW/include"
+
+include "Bioba/vendor/GLFW"
+    
 project "Bioba"
     location "Bioba"
     kind "SharedLib"
@@ -12,6 +18,10 @@ project "Bioba"
 
     targetdir ("bin/" .. output_dir .. "/%{prj.name}")
     objdir ("bin-int/" .. output_dir .. "/%{prj.name}")
+
+    pchheader "biopch.h"
+    pchsource "Bioba/src/biopch.cpp"
+    
     files { 
     "%{prj.name}/src/**.h", 
     "%{prj.name}/src/**.cpp" 
@@ -20,7 +30,13 @@ project "Bioba"
     includedirs {
     "%{prj.name}/src",
     "%{prj.name}/vendor/spdlog/include",
-	}
+    "%{IncludeDir.GLFW}"
+    }
+    
+    links {
+        "GLFW",
+        "opengl32.lib"
+    }
 
     filter { "system:windows" }
         cppdialect "C++17"
