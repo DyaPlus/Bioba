@@ -8,9 +8,11 @@ output_dir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Bioba/vendor/GLFW/include"
+IncludeDir["Glad"] = "Bioba/vendor/Glad/include"
 
 include "Bioba/vendor/GLFW"
-    
+include "Bioba/vendor/Glad"
+
 project "Bioba"
     location "Bioba"
     kind "SharedLib"
@@ -30,11 +32,13 @@ project "Bioba"
     includedirs {
     "%{prj.name}/src",
     "%{prj.name}/vendor/spdlog/include",
-    "%{IncludeDir.GLFW}"
+    "%{IncludeDir.GLFW}",
+    "%{IncludeDir.Glad}"
     }
     
     links {
         "GLFW",
+        "Glad",
         "opengl32.lib"
     }
 
@@ -44,7 +48,8 @@ project "Bioba"
             
         defines {
         "BIO_BUILD_DLL",
-        "BIO_WINDOWS_PLATFORM";
+        "BIO_WINDOWS_PLATFORM",
+        "GLFW_INCLUDE_NONE",
         }
         postbuildcommands {
             ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. output_dir .. "/Editor")
