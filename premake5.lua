@@ -9,9 +9,12 @@ output_dir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Bioba/vendor/GLFW/include"
 IncludeDir["Glad"] = "Bioba/vendor/Glad/include"
+IncludeDir["ImGui"] = "Bioba/vendor/ImGui"
+
 
 include "Bioba/vendor/GLFW"
 include "Bioba/vendor/Glad"
+include "Bioba/vendor/ImGui"
 
 project "Bioba"
     location "Bioba"
@@ -33,12 +36,14 @@ project "Bioba"
     "%{prj.name}/src",
     "%{prj.name}/vendor/spdlog/include",
     "%{IncludeDir.GLFW}",
-    "%{IncludeDir.Glad}"
+    "%{IncludeDir.Glad}",
+    "%{IncludeDir.ImGui}"
     }
     
     links {
         "GLFW",
         "Glad",
+        "ImGui",
         "opengl32.lib"
     }
 
@@ -50,6 +55,7 @@ project "Bioba"
         "BIO_BUILD_DLL",
         "BIO_WINDOWS_PLATFORM",
         "GLFW_INCLUDE_NONE",
+        "BIO_ENABLE_ASSERT"
         }
         postbuildcommands {
             ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. output_dir .. "/Editor")

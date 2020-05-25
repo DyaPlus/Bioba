@@ -18,9 +18,14 @@ public:
 class Editor : public Bioba::Application
 {
 public:
-	Editor() {
+	Editor()
+		:Bioba::Application()
+	{
+		
 		PushLayer(new LayerExample());
+		Bioba::ImGuiLayer* gui_layer = new Bioba::ImGuiLayer(GetWindowWidth(), GetWindowHeight());
 
+		PushLayer(gui_layer);
 	}
 
 	~Editor() {

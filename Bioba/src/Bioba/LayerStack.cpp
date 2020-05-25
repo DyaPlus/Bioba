@@ -1,5 +1,6 @@
 #include "biopch.h"
 #include "LayerStack.h"
+#include "Log.h" 
 
 namespace Bioba {
 
@@ -23,6 +24,7 @@ namespace Bioba {
 		{
 			m_Layers.emplace_back(layer);
 		}
+		layer->OnAttach();
 	}
 
 	void LayerStack::PopLayer(Layer* layer)
@@ -45,6 +47,10 @@ namespace Bioba {
 				layer->OnDetach();
 				m_Layers.erase(it);
 			}
+		} 
+		else
+		{
+			BIO_ENGINE_WARN("Couldn't find the layer : {0}", layer->GetName());
 		}
 		
 	}

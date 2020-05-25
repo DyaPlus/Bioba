@@ -1,5 +1,6 @@
 #include "biopch.h"
 #include "Application.h"
+#include "glad/glad.h"
 
 #define BIND_EVENT_FN(x) std::bind(&Bioba::Application::x,this,std::placeholders::_1)
 
@@ -17,13 +18,38 @@ void Bioba::Application::Start()
 {
 	while (m_IsRunning)
 	{
+		//TODO Remove 
+		glClearColor(0.2, 0.4, 0.2, 0.1);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		for (auto& layer : m_LayerStack)
+		{
+			layer->OnUpdate();
+		}
 		m_Window->OnUpdate();
+		
 	}
 }
 
 void Bioba::Application::PushLayer(Layer* layer)
 {
 	m_LayerStack.PushLayer(layer);
+}
+
+inline int Bioba::Application::GetWindowWidth()
+{
+	if (m_Window)
+	{
+		return m_Window->GetWidth();
+	}
+}
+
+inline int Bioba::Application::GetWindowHeight()
+{
+	if (m_Window)
+	{
+		return m_Window->GetHeight();
+	}
 }
 
 void Bioba::Application::OnEvent(Event& e)

@@ -2,6 +2,7 @@
 
 #include "WindowsWindow.h"
 #include "Bioba/Log.h"
+#include "glad/glad.h"
 
 namespace Bioba {
 
@@ -36,9 +37,15 @@ namespace Bioba {
 		}
 
 		{
-			
-			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
 			++s_GLFWWindowCount;
+			glfwMakeContextCurrent(m_Window);
+
+			int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+			BIO_EDITOR_ASSERT(status)
+			
+			
+
 		}
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -150,7 +157,10 @@ namespace Bioba {
 
 	void WindowsWindow::OnUpdate()
 	{
+		
+
 		glfwPollEvents();
+		glfwSwapBuffers(m_Window);
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

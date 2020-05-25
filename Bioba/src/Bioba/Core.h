@@ -12,8 +12,8 @@
 #endif
 
 #ifdef BIO_ENABLE_ASSERT
-	#define BIO_ENGINE_ASSERT(x) { if(!(x)) { BIO_ENGINE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-	#define BIO_EDITOR_ASSERT(x) { if(!(x)) { BIO_EDITOR_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define BIO_ENGINE_ASSERT(x) { if(!(x)) { BIO_ENGINE_ERROR("Assertion Failed: {0}", #x); __debugbreak(); } }
+#define BIO_EDITOR_ASSERT(x) { if(!(x)) { BIO_EDITOR_ERROR("Assertion Failed: {0}", #x); __debugbreak(); } }
 #else
 	#define BIO_ENGINE_ASSERT(x) 
 	#define BIO_EDITOR_ASSERT(x) 

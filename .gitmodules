@@ -4,3 +4,6 @@
 [submodule "Bioba\\vendor\\GLFW"]
 	path = Bioba\\vendor\\GLFW
 	url = https://github.com/TheCherno/glfw.git
+[submodule "Bioba/Bioba/vendor\\Imgui"]
+	path = Bioba/Bioba/vendor\\Imgui
+	url = https://github.com/DyaPlus/imgui.git

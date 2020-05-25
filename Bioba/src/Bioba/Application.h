@@ -15,7 +15,10 @@ namespace Bioba
 
 		void Start();
 		void PushLayer(Layer* layer);
-		
+		inline int GetWindowWidth();
+		inline int GetWindowHeight();
+
+
 	private:
 		void OnEvent(Event& e);
 		bool OnWindowClose(WindowCloseEvent& e);
