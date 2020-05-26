@@ -38,6 +38,7 @@ namespace Bioba {
 		}
 		return false;
 	}
-	
 
+#define BIND_EVENT_FN(x) std::bind(&x , this , std::placeholders::_1)
+#define DISPATCH_EVENT(req_event_type,in_event,f) DispatchEvent<req_event_type>(in_event,BIND_EVENT_FN(f))
 }

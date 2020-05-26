@@ -37,14 +37,14 @@ namespace Bioba {
 		}
 
 		{
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
 			++s_GLFWWindowCount;
 			glfwMakeContextCurrent(m_Window);
 
 			int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-			BIO_EDITOR_ASSERT(status)
-			
-			
+			BIO_EDITOR_ASSERT(status);
 
 		}
 
@@ -54,7 +54,6 @@ namespace Bioba {
 		// Set GLFW callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 			{
-				void* lol = glfwGetWindowUserPointer(window);
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				data.Width = width;
 				data.Height = height;
@@ -157,10 +156,9 @@ namespace Bioba {
 
 	void WindowsWindow::OnUpdate()
 	{
-		
-
-		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
+		glfwPollEvents();
+		
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

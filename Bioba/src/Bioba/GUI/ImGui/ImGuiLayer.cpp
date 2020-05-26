@@ -1,13 +1,16 @@
 #include "biopch.h"
 #include "imgui.h"
 #include "ImGuiLayer.h"
-#include "GLFW/glfw3.h"
 #include "Platform_Impl/imgui_impl_opengl3.h"
+#include "Bioba/Log.h"
+//TODO Remove 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 namespace Bioba {
 
     ImGuiLayer::ImGuiLayer(int width,int height)
-        :Layer(LayerType::Overlay,"GUI") , m_Time(0) , m_Width(width) , m_Height(height)
+        :Layer(LayerType::Overlay,"GUI") , m_Time(0) , m_Width(width) , m_Height(height) , m_MousePosition(0,0)
     {
 
     }
@@ -15,6 +18,19 @@ namespace Bioba {
     ImGuiLayer::~ImGuiLayer()
     {
         OnDetach();
+    }
+
+    void ImGuiLayer::OnEvent(Event& e)
+    {
+        DISPATCH_EVENT(MouseButtonPressedEvent, e, ImGuiLayer::OnMouseButtonPressed);
+        DISPATCH_EVENT(MouseButtonReleasedEvent, e, ImGuiLayer::OnMouseButtonReleased);
+        DISPATCH_EVENT(MouseMovedEvent, e, ImGuiLayer::OnMouseMoved);
+        DISPATCH_EVENT(MouseScrolledEvent, e, ImGuiLayer::OnMouseScrolled);
+        DISPATCH_EVENT(KeyPressedEvent, e, ImGuiLayer::OnKeyPressed);
+        DISPATCH_EVENT(KeyReleasedEvent, e, ImGuiLayer::OnKeyReleased);
+        DISPATCH_EVENT(KeyTypedEvent, e, ImGuiLayer::OnKeyTyped);
+        DISPATCH_EVENT(WindowResizeEvent, e, ImGuiLayer::OnWindowResize);
+
     }
 
 
@@ -81,6 +97,79 @@ namespace Bioba {
     {
         ImGui_ImplOpenGL3_Shutdown();
         //ImGui::DestroyContext();
+    }
+
+    bool ImGuiLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MouseDown[e.GetMouseButton()] = true;
+        return true;
+    }
+
+    bool ImGuiLayer::OnMouseButtonReleased(MouseButtonReleasedEvent& e)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MouseDown[e.GetMouseButton()] = false;
+        return true;
+    }
+
+    bool ImGuiLayer::OnMouseMoved(MouseMovedEvent& e)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MousePos = ImVec2(e.GetX(), e.GetY());
+        m_MousePosition = { e.GetX(), e.GetY() };
+        return false;
+    }
+
+    bool ImGuiLayer::OnMouseScrolled(MouseScrolledEvent& e)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MouseWheel = e.GetYOffset();
+        io.MouseWheelH = e.GetXOffset();
+
+        return true;
+    }
+
+    bool ImGuiLayer::OnKeyPressed(KeyPressedEvent& e)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.KeysDown[e.GetKeyCode()] = true;
+        io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
+        io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
+        io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
+        io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
+        return true;
+    }
+
+    bool ImGuiLayer::OnKeyReleased(KeyReleasedEvent& e)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.KeysDown[e.GetKeyCode()] = false;
+        io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
+        io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
+        io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
+        io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
+        return true;
+    }
+
+    bool ImGuiLayer::OnKeyTyped(KeyTypedEvent& e)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.AddInputCharacter(e.GetKeyCode());
+        return true;
+    }
+
+    bool ImGuiLayer::OnWindowResize(WindowResizeEvent& e)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        m_Width = e.GetWidth();
+        m_Height = e.GetHeight();
+        io.DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
+        io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+        BIO_ENGINE_ERROR(glGetString(GL_VERSION));
+        BIO_ENGINE_ERROR("width : {0} ,height {1}", m_Width, m_Height);
+        glViewport(0, 0 , 0, 0);
+        return false;
     }
 
 }

@@ -8,6 +8,7 @@ Bioba::Application::Application()
 	:m_Window(std::unique_ptr<Window>(Window::Create())) , m_IsRunning(true)
 {
 	m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+	
 }
 
 Bioba::Application::~Application()
@@ -54,15 +55,19 @@ inline int Bioba::Application::GetWindowHeight()
 
 void Bioba::Application::OnEvent(Event& e)
 {
+
 	DispatchEvent<WindowCloseEvent>(e, BIND_EVENT_FN(OnWindowClose));
-	for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+
+
+	for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); it++)
 	{
-		(*--it)->OnEvent(e);
+		(*it)->OnEvent(e);
 		if (e.Handled)
 		{
 			break; //A Layer found its event so don't continue
 		}
 	}
+
 }
 
 bool Bioba::Application::OnWindowClose(WindowCloseEvent& e)
