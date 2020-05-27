@@ -15,6 +15,7 @@ namespace Bioba
 
 		void Start();
 		void PushLayer(Layer* layer);
+		std::shared_ptr<Window> GetWindow();
 		inline int GetWindowWidth();
 		inline int GetWindowHeight();
 
@@ -23,7 +24,7 @@ namespace Bioba
 		void OnEvent(Event& e);
 		bool OnWindowClose(WindowCloseEvent& e);
 		LayerStack m_LayerStack;
-		std::unique_ptr<Window> m_Window;
+		std::shared_ptr<Window> m_Window;
 		bool m_IsRunning;
 
 	};

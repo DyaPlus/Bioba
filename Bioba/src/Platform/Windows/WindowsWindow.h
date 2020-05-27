@@ -6,7 +6,6 @@
 #include "GLFW/glfw3.h"
 
 namespace Bioba {
-
 	class WindowsWindow : public Window
 	{
 	public:
