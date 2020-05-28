@@ -10,6 +10,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Bioba/vendor/GLFW/include"
 IncludeDir["Glad"] = "Bioba/vendor/Glad/include"
 IncludeDir["ImGui"] = "Bioba/vendor/ImGui"
+IncludeDir["glm"] = "Bioba/vendor/glm"
 
 
 include "Bioba/vendor/GLFW"
@@ -29,7 +30,9 @@ project "Bioba"
     
     files { 
     "%{prj.name}/src/**.h", 
-    "%{prj.name}/src/**.cpp" 
+    "%{prj.name}/src/**.cpp",
+    "%{prj.name}/vendor/glm/glm/**.hpp",
+    "%{prj.name}/vendor/glm/glm/**.inl"
     }
 
     includedirs {
@@ -37,7 +40,8 @@ project "Bioba"
     "%{prj.name}/vendor/spdlog/include",
     "%{IncludeDir.GLFW}",
     "%{IncludeDir.Glad}",
-    "%{IncludeDir.ImGui}"
+    "%{IncludeDir.ImGui}",
+    "%{IncludeDir.glm}"
     }
     
     links {

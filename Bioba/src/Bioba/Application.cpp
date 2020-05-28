@@ -3,6 +3,7 @@
 #include "glad/glad.h"
 #include "Input.h"
 
+
 #define BIND_EVENT_FN(x) std::bind(&Bioba::Application::x,this,std::placeholders::_1)
 
 Bioba::Application::Application()
@@ -10,6 +11,7 @@ Bioba::Application::Application()
 {
 	m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	Input::Init(this);
+
 }
 
 Bioba::Application::~Application()
